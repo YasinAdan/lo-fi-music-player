@@ -1,38 +1,33 @@
 import React from 'react';
 import data from '../data';
 
+import { playAudio } from '../util';
+
 const LibrarySong = ({song, songs, setCurrentSong, id, audioRef, playing, setSongs}) => {
 
     // let prevSong = {...song};
     const handleSong = () => {
-        const selectedSong = song;
-        setCurrentSong(selectedSong);
-
-        if(playing) {
-            const playPromise = audioRef.current.play();
-            
-            if(playPromise !== undefined) {
-                playPromise.then(async (audio) => {
-                    await audioRef.current.play();
-                });
-            }
+      const selectedSong = songs.filter((state) => state.id === id);
+      setCurrentSong({ ...selectedSong[0] });
+      //Set Active in library
+      const newSongs = songs.map((song) => {
+        if (song.id === id) {
+          return {
+            ...song,
+            active: true,
+          };
+        } else {
+          return {
+            ...song,
+            active: false,
+          };
         }
-        const newSongs = songs.map((song) => {
-            if (song.id === id) {
-              return {
-                ...song,
-                active: true,
-              };
-            } else {
-              return {
-                ...song,
-                active: false,
-              };
-            }
-          });
-          setSongs(newSongs);
-}
-
+      });
+      setSongs(newSongs);
+  
+      //Play audio
+      playAudio(playing, audioRef);
+    };
 
     return (
         <div className={`library-song ${song.active ? 'selected' : ''}`} onClick={() => handleSong()}>
