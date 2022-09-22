@@ -1,0 +1,31 @@
+@import './player';
+@import './song';
+@import './library';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,h2,h3 {
+    color: rgb(54, 54, 54);
+}
+
+.nav-control {
+    height: 2.6rem;
+    width: 7rem;
+    position: absolute;
+    left: 90%;
+    bottom: 90%;
+    background-color: white;
+    color: black;
+    border: 2px solid black; /* Green */
+    animation-name: LTRL;
+    animation-duration: 3s;
+    &:hover {
+        background: rgb(247, 224, 224);
+        cursor: pointer;
+    }
+
+}
